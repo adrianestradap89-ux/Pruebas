@@ -1,6 +1,9 @@
-{$SUBDOMAIN}.{$DOMAIN_NAME} {
-	# En esta arquitectura híbrida (Vercel + VPS)
-	# Caddy en la VPS solamente actuará como proxy seguro (HTTPS) para n8n
-	
-	reverse_proxy n8n:5678
+colegio-espana.duckdns.org {
+    # Proxy inverso para n8n
+    reverse_proxy n8n:5678
+    
+    # Manejo de logs (opcional pero recomendado)
+    log {
+        output file /data/caddy_access.log
+    }
 }
