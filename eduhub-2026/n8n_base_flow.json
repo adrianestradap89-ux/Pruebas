@@ -1,0 +1,150 @@
+{
+  "name": "EduHub Colegios - Webhooks Base",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "auth/login",
+        "options": {}
+      },
+      "id": "e1",
+      "name": "Login Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "auth-login"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.body.email}}",
+              "value2": "test@ejemplo.com"
+            },
+            {
+              "value1": "={{$json.body.password}}",
+              "value2": "123456"
+            }
+          ]
+        }
+      },
+      "id": "e2",
+      "name": "IF Credenciales",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"user\": {\n    \"id\": \"1\",\n    \"full_name\": \"Admin Escuela\",\n    \"role\": \"admin\",\n    \"email\": \"test@ejemplo.com\"\n  }\n}",
+        "options": {}
+      },
+      "id": "e3",
+      "name": "Respond Auth Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        650,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseStatusCode": 401,
+        "responseBody": "={\n  \"success\": false,\n  \"error\": \"Credenciales invalidas\"\n}",
+        "options": {}
+      },
+      "id": "e4",
+      "name": "Respond Auth Fail",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        650,
+        450
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "feed/posts",
+        "options": {}
+      },
+      "id": "e5",
+      "name": "Feed Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        600
+      ],
+      "webhookId": "feed-posts"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "=[\n  {\n    \"id\": 10,\n    \"content\": \"Bienvenidos al nuevo sistema escolar.\",\n    \"created_at\": \"2026-03-10T00:00:00.000Z\",\n    \"author_name\": \"Dirección\"\n  }\n]",
+        "options": {}
+      },
+      "id": "e6",
+      "name": "Respond Feed",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        450,
+        600
+      ]
+    }
+  ],
+  "connections": {
+    "Login Webhook": {
+      "main": [
+        [
+          {
+            "node": "IF Credenciales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Credenciales": {
+      "main": [
+        [
+          {
+            "node": "Respond Auth Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Auth Fail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Feed Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond Feed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}

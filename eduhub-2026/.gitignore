@@ -1,0 +1,14 @@
+# Environment variables
+.env
+.env.*
+
+# Docker volumes and n8n data
+n8n_data/
+caddy_data/
+caddy_config/
+n8n_local_files/
+.github/
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db

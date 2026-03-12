@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio España - EDUHUB 2026</title>
+    <!-- Usaremos Tailwind via CDN para este entorno puramente estático -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1d4ed8', // Editable
+                        secondary: '#f3f4f6'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col items-center">
+
+    <!-- Header -->
+    <header class="w-full bg-white shadow-sm flex items-center justify-between px-8 py-4 sticky top-0 z-10 border-b border-gray-200">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary rounded-md flex items-center justify-center text-white font-bold text-xl shadow-inner">CE</div>
+            <h1 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">Colegio España</h1>
+        </div>
+        <div id="auth-section">
+             <!-- Se llenará con JS dependiendo del estado de logeo -->
+            <button onclick="document.getElementById('loginModal').classList.remove('hidden')" class="text-sm font-medium border border-primary text-primary px-5 py-2 rounded-full hover:bg-primary hover:text-white transition-all shadow-sm">
+                Iniciar Sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- Modal de Login Simulado (Conectará vía Webhook) -->
+    <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center px-4 backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm transform transition-all scale-100">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Acceso al Portal</h2>
+            <form id="loginForm" class="flex flex-col gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                    <input type="email" id="email" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="usuario@ejemplo.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="password" required class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-primary text-white font-medium py-2.5 rounded-lg mt-2 hover:bg-blue-700 transition-colors shadow-md flex justify-center items-center">
+                    <span id="loginText">Entrar</span>
+                    <svg id="loginSpinner" class="hidden animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+                <button type="button" onclick="document.getElementById('loginModal').classList.add('hidden')" class="w-full text-gray-500 font-medium py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    Cancelar
+                </button>
+            </form>
+            <div id="loginError" class="hidden mt-4 text-sm text-red-600 text-center font-medium bg-red-50 p-2 rounded">
+                 Credenciales inválidas o error de conexión.
+            </div>
+        </div>
+    </div>
+
+    <!-- Feed Content -->
+    <main class="max-w-2xl w-full mt-10 px-4 flex flex-col gap-8 pb-20">
+        <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-gray-800">Noticias y Avisos</h2>
+            <button id="refreshFeedBtn" class="p-2 text-gray-500 hover:text-primary transition-colors rounded-full hover:bg-gray-100">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
+        </div>
+        
+        <div id="feedContainer" class="flex flex-col gap-6">
+            <!-- Esqueletos de carga -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 animate-pulse">
+                <div class="flex gap-4 items-center mb-4">
+                    <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                    <div class="flex flex-col gap-2">
+                        <div class="h-4 bg-gray-200 rounded w-32"></div>
+                        <div class="h-3 bg-gray-200 rounded w-24"></div>
+                    </div>
+                </div>
+                <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                <div class="h-4 bg-gray-200 rounded w-5/6 mb-4"></div>
+                <div class="w-full h-48 bg-gray-200 rounded-xl"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/app.js"></script>
+</body>
+</html>

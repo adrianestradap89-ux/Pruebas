@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Colegio España</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#1d4ed8' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800 h-screen overflow-hidden flex">
+
+    <!-- Sidebar Colapsable -->
+    <aside id="sidebar" class="w-64 bg-white border-r border-gray-200 transition-all duration-300 flex flex-col relative z-20 shadow-sm">
+        <div class="h-16 flex items-center justify-between px-4 border-b border-gray-100">
+            <span id="brandName" class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">Colegio España</span>
+            <button id="toggleSidebar" class="p-1.5 rounded-md hover:bg-gray-100 bg-white border shadow-sm absolute -right-3 top-4">
+                <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+        </div>
+
+        <nav class="flex-1 py-6 flex flex-col gap-2 px-3 overflow-y-auto" id="navMenu">
+            <!-- Se inyecta dinámicamente según ROL -->
+        </nav>
+
+        <div class="p-4 border-t border-gray-100">
+            <button onclick="logout()" class="w-full flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-medium">
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                <span class="nav-label">Cerrar Sesión</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto flex flex-col">
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center px-8 justify-between shadow-sm z-10 sticky top-0">
+            <h1 id="pageTitle" class="font-bold text-gray-800 text-lg">Panel de Control</h1>
+            <div id="userProfile" class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <div id="userName" class="text-sm font-bold text-gray-800">Cargando...</div>
+                    <div id="userRoleBadge" class="text-xs text-primary font-medium uppercase tracking-wide">...</div>
+                </div>
+                <div class="w-9 h-9 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold" id="userAvatar">?</div>
+            </div>
+        </header>
+
+        <div id="dashboardContent" class="p-8 pb-32 max-w-7xl mx-auto w-full">
+            <!-- Vistas Dinámicas Inyectadas vía JS -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
+                <div class="w-16 h-16 mx-auto mb-4 text-gray-300">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Seleccione un módulo</h2>
+                <p class="text-gray-500">Utilice el menú lateral para navegar por las distintas opciones del sistema EduHub.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lógica Principal -->
+    <script src="/app.js"></script>
+    <!-- Lógica Específica del Dashboard (Vistas) -->
+    <script src="/dashboard.js"></script>
+</body>
+</html>

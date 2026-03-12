@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/n8n/:path*",
+      "destination": "https://api-colegioespana.duckdns.org/n8n/:path*"
+    },
+    {
+      "source": "/webhook/:path*",
+      "destination": "https://api-colegioespana.duckdns.org/webhook/:path*"
+    },
+    {
+      "source": "/webhook-test/:path*",
+      "destination": "https://api-colegioespana.duckdns.org/webhook-test/:path*"
+    }
+  ]
+}

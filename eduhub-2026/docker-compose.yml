@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - n8n
+    networks:
+      - eduhub-network
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: eduhub-n8n
+    restart: unless-stopped
+    environment:
+      - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n_local_files:/files # Para almacenar archivos si n8n los necesita interactuar localmente
+    networks:
+      - eduhub-network
+
+volumes:
+  caddy_data:
+  caddy_config:
+  n8n_data:
+
+networks:
+  eduhub-network:
+    driver: bridge
