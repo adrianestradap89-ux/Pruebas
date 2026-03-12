@@ -3,15 +3,15 @@
   "rewrites": [
     {
       "source": "/n8n/:path*",
-      "destination": "https://[TU-URL-DE-RAILWAY-AQUI]/n8n/:path*"
+      "destination": "https://pruebas-80d7.onrender.com/n8n/:path*"
     },
     {
       "source": "/webhook/:path*",
-      "destination": "https://[TU-URL-DE-RAILWAY-AQUI]/webhook/:path*"
+      "destination": "https://pruebas-80d7.onrender.com/webhook/:path*"
     },
     {
       "source": "/webhook-test/:path*",
-      "destination": "https://[TU-URL-DE-RAILWAY-AQUI]/webhook-test/:path*"
+      "destination": "https://pruebas-80d7.onrender.com/webhook-test/:path*"
     }
   ]
 }
