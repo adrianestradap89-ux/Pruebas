@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    environment:
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=${DB_POSTGRESDB_HOST}
+      - DB_POSTGRESDB_PORT=${DB_POSTGRESDB_PORT}
+      - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE}
+      - DB_POSTGRESDB_USER=${DB_POSTGRESDB_USER}
+      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
+      - DB_POSTGRESDB_SSL=true
+      - N8N_METRICS=true
+      - WEBHOOK_URL=${RENDER_EXTERNAL_URL}
+      - N8N_PROTOCOL=https
+      - N8N_PORT=10000
+    ports:
+      - "10000:10000"
