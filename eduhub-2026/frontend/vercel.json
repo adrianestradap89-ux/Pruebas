@@ -3,11 +3,15 @@
   "rewrites": [
     {
       "source": "/n8n/:path*",
-      "destination": "https://colegio-espana.duckdns.org/n8n/:path*"
+      "destination": "https://n8n-server-692478429889.us-central1.run.app/n8n/:path*"
     },
     {
       "source": "/webhook/:path*",
-      "destination": "https://colegio-espana.duckdns.org/webhook/:path*"
+      "destination": "https://n8n-server-692478429889.us-central1.run.app/webhook/:path*"
+    },
+    {
+      "source": "/webhook-test/:path*",
+      "destination": "https://n8n-server-692478429889.us-central1.run.app/webhook-test/:path*"
     }
   ]
 }
